@@ -50,7 +50,7 @@ interface AnyObject {
   [x: string]: any;
 }
 
-export const Tagger = new Proxy({} as AnyObject, {
+export const Retagger = new Proxy({} as AnyObject, {
   get(_, Component: parameterType): ElementType {
     return createAttributesProxy(Component as ElementType);
   },

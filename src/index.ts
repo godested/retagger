@@ -1,1 +1,1 @@
-export { Tagger as default } from './Tagger';
+export { Retagger as default } from './Retagger';
