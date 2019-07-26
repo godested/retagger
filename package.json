@@ -2,8 +2,11 @@
   "name": "retagger",
   "version": "0.1.0",
   "description": "Experimental way to define components",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "module": "dist/es.js",
+  "browser": "dist/browser.js",
   "scripts": {
+    "build": "rollup -c",
     "lint": "prettier src/**/* --write && eslint './src/**/*.{js,ts,jsx,tsx}' --fix"
   },
   "repository": {
@@ -49,6 +52,9 @@
     "husky": "^3.0.1",
     "lint-staged": "^9.2.1",
     "prettier": "^1.16.4",
+    "rollup": "^1.17.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.22.1",
     "typescript": "3.4.5"
   },
   "bugs": {

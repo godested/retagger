@@ -11,3 +11,5 @@ yarn-error.log*
 #ide
 /.vscode
 /.idea
+
+/.rpt2_cache
