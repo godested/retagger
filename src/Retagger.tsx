@@ -46,11 +46,7 @@ function createAttributesProxy(Component: ElementType): ElementType {
   }) as ElementType;
 }
 
-interface AnyObject {
-  [x: string]: any;
-}
-
-export const Retagger = new Proxy({} as AnyObject, {
+export const Retagger = new Proxy({} as Record<parameterType, any>, {
   get(_, Component: parameterType): ElementType {
     return createAttributesProxy(Component as ElementType);
   },
