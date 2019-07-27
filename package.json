@@ -1,6 +1,6 @@
 {
   "name": "retagger",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Experimental way to define components",
   "main": "dist/main.js",
   "module": "dist/es.js",

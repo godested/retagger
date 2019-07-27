@@ -1,6 +1,6 @@
 import React, { ElementType } from 'react';
 
-const blackList = [
+const blackList = new Set([
   'defaultProps',
   'tag',
   'displayName',
@@ -13,41 +13,49 @@ const blackList = [
   'contextTypes',
   'name',
   'PropTypes',
-];
+]);
 
-interface Result {
+interface Attributes {
   classNames: string[];
 }
 
-type parameterType = string | number | symbol;
-
-function createAttributesProxy(Component: ElementType): ElementType {
-  const result: Result = {
+function createAttributesProxy(Component: ElementType) {
+  const attributes: Attributes = {
     classNames: [],
   };
 
-  return new Proxy(Component as object, {
-    get: function get(target: object, property: parameterType): any {
-      if (typeof property !== 'string' || blackList.includes(property)) {
-        return Reflect.get(target, property);
+  return new Proxy((props: object) => <Component {...props} />, {
+    get: function get(target: Record<any, any>, property: string): any {
+      const isPropertyCantBeAttribute =
+        property in target ||
+        typeof property !== 'string' ||
+        blackList.has(property);
+
+      if (isPropertyCantBeAttribute) {
+        return target[property];
       }
 
-      result.classNames = [...result.classNames, property];
+      attributes.classNames = [...attributes.classNames, property as string];
+
+      const ResultComponent = target as ElementType;
 
       return new Proxy(
         (props: object) => {
-          const Target = target as ElementType;
-
-          return <Target className={result.classNames.join(' ')} {...props} />;
+          return (
+            <ResultComponent
+              className={attributes.classNames.join(' ')}
+              {...props}
+            />
+          );
         },
         { get }
       );
     },
-  }) as ElementType;
+  });
 }
 
-export const Retagger = new Proxy({} as Record<parameterType, any>, {
-  get(_, Component: parameterType): ElementType {
+export const Retagger = new Proxy({} as Record<any, any>, {
+  get(_, Component: string) {
     return createAttributesProxy(Component as ElementType);
   },
 });
