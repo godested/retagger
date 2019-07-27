@@ -1,4 +1,4 @@
-import React, { ElementType } from 'react';
+import React, { ElementType, ReactHTML } from 'react';
 
 const blackList = new Set([
   'defaultProps',
@@ -35,7 +35,7 @@ function createAttributesProxy(Component: ElementType) {
         return target[property];
       }
 
-      attributes.classNames = [...attributes.classNames, property as string];
+      attributes.classNames = [...attributes.classNames, property];
 
       const ResultComponent = target as ElementType;
 
@@ -54,8 +54,8 @@ function createAttributesProxy(Component: ElementType) {
   });
 }
 
-export const Retagger = new Proxy({} as Record<any, any>, {
-  get(_, Component: string) {
-    return createAttributesProxy(Component as ElementType);
+export const Retagger = new Proxy({} as Record<keyof ReactHTML, any>, {
+  get(_, Component: keyof ReactHTML) {
+    return createAttributesProxy(Component);
   },
 });

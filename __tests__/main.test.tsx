@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { Retagger } from '../Retagger';
+import { Retagger } from '../src/Retagger';
 
 it('renders without crashing', () => {
   const div = window.document.createElement('div');
