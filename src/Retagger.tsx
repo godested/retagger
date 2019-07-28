@@ -1,4 +1,5 @@
-import React, { ElementType, ReactHTML } from 'react';
+import React, { ElementType, ReactHTML, AllHTMLAttributes } from 'react';
+import { classNames } from './utils';
 
 const blackList = new Set([
   'defaultProps',
@@ -15,13 +16,9 @@ const blackList = new Set([
   'PropTypes',
 ]);
 
-interface Attributes {
-  classNames: string[];
-}
-
 function createAttributesProxy(Component: ElementType) {
-  const attributes: Attributes = {
-    classNames: [],
+  const attributes: AllHTMLAttributes<typeof Component> = {
+    className: undefined,
   };
 
   return new Proxy((props: object) => <Component {...props} />, {
@@ -35,18 +32,13 @@ function createAttributesProxy(Component: ElementType) {
         return target[property];
       }
 
-      attributes.classNames = [...attributes.classNames, property];
+      attributes.className = classNames(attributes.className, property);
 
       const ResultComponent = target as ElementType;
 
       return new Proxy(
         (props: object) => {
-          return (
-            <ResultComponent
-              className={attributes.classNames.join(' ')}
-              {...props}
-            />
-          );
+          return <ResultComponent {...attributes} {...props} />;
         },
         { get }
       );
