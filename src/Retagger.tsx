@@ -17,9 +17,7 @@ const blackList = new Set([
 ]);
 
 function createAttributesProxy(Component: ElementType) {
-  const attributes: AllHTMLAttributes<typeof Component> = {
-    className: undefined,
-  };
+  const attributes: AllHTMLAttributes<typeof Component> = {};
 
   return new Proxy((props: object) => <Component {...props} />, {
     get: function get(target: Record<any, any>, property: string): any {
