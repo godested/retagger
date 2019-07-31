@@ -66,4 +66,20 @@ function MyComponent() {
 }
 ```
 
+```js
+import Retagger from 'retagger';
+
+const Container = Retagger(YourComponent).Container.foo;
+// YourComponent should accept className prop
+// <YourComponent className="Container foo" {...restProps} />
+
+function MyComponent() {
+  return (
+    <Container>
+      <OtherComponent />
+    </Container>
+  );
+}
+```
+
 See [LICENSE](./LICENSE) for more information.

@@ -1,4 +1,9 @@
-import React, { ElementType, ReactHTML, AllHTMLAttributes } from 'react';
+import React, {
+  Component,
+  ElementType,
+  ReactHTML,
+  AllHTMLAttributes,
+} from 'react';
 import { classNames } from './utils';
 
 const blackList = new Set([
@@ -16,10 +21,10 @@ const blackList = new Set([
   'PropTypes',
 ]);
 
-function createAttributesProxy(Component: ElementType) {
+function createAttributesProxy(WrappedComponent: ElementType) {
   const attributes: AllHTMLAttributes<typeof Component> = {};
 
-  return new Proxy((props: object) => <Component {...props} />, {
+  return new Proxy((props: object) => <WrappedComponent {...props} />, {
     get: function get(target: Record<any, any>, property: string): any {
       const isPropertyCantBeAttribute =
         property in target ||
@@ -44,8 +49,13 @@ function createAttributesProxy(Component: ElementType) {
   });
 }
 
-export const Retagger = new Proxy({} as Record<keyof ReactHTML, any>, {
-  get(_, Component: keyof ReactHTML) {
-    return createAttributesProxy(Component);
-  },
-});
+export const Retagger = new Proxy(
+  createAttributesProxy as Record<string | keyof ReactHTML, any>,
+  {
+    get(target, property: keyof ReactHTML) {
+      return Reflect.has(target, property)
+        ? target[property]
+        : createAttributesProxy(property);
+    },
+  }
+);
