@@ -1,6 +1,4 @@
-<h1 align="center">
-  Retagger
-</h1>
+retagger
 <p align="center" style="font-size: 1.2rem;">?</p>
 <p align="center" style="font-size: 1.2rem;">emmit.jsx</p>
 
