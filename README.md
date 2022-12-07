@@ -1,8 +1,8 @@
 <h1 align="center">
   Retagger
 </h1>
-<p align="center" style="font-size: 1.2rem;">Wtf is going on.</p>
-<p align="center" style="font-size: 1.2rem;">Retagger can create any component with any className</p>
+<p align="center" style="font-size: 1.2rem;">?</p>
+<p align="center" style="font-size: 1.2rem;">emmit.jsx</p>
 
 [![License](https://img.shields.io/npm/l/retagger.svg)](https://github.com/godested/retagger/blob/master/LICENSE)
 [![npm package](https://img.shields.io/npm/v/retagger.svg)](https://www.npmjs.com/package/retagger)
