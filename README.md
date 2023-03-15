@@ -1,5 +1,5 @@
 # retagger
-emmit.jsx
+emmet.jsx
 
 [![License](https://img.shields.io/npm/l/retagger.svg)](https://github.com/godested/retagger/blob/master/LICENSE)
 [![npm package](https://img.shields.io/npm/v/retagger.svg)](https://www.npmjs.com/package/retagger)
